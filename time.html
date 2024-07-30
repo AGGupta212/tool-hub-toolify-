@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Converter</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #8d10cc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+    }
+    .converter {
+        margin: 20px;
+        text-align: center;
+            background-color: #90e04e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+</head>
+<body>
+<div class="converter">
+    <h2>Time Converter</h2>
+    <label for="time">Enter Time:</label>
+    <input type="number" id="time" oninput="convertTime()">
+    <select id="fromUnit" onchange="convertTime()">
+        <option value="ms">Millisecond (ms)</option>
+        <option value="s">Second (s)</option>
+        <option value="min">Minute (min)</option>
+        <option value="h">Hour (h)</option>
+        <option value="d">Day (d)</option>
+        <option value="wk">Week (wk)</option>
+    </select>
+    <p>Converted Time:</p>
+    <p id="convertedTime"></p>
+</div>
+
+<script>
+function convertTime() {
+    const timeInput = document.getElementById("time").value;
+    const fromUnit = document.getElementById("fromUnit").value;
+    let convertedTime;
+
+    switch(fromUnit) {
+        case "ms":
+            convertedTime = {
+                s: timeInput / 1000,
+                min: timeInput / 60000,
+                h: timeInput / 3600000,
+                d: timeInput / 86400000,
+                wk: timeInput / 604800000
+            };
+            break;
+        case "s":
+            convertedTime = {
+                ms: timeInput * 1000,
+                min: timeInput / 60,
+                h: timeInput / 3600,
+                d: timeInput / 86400,
+                wk: timeInput / 604800
+            };
+            break;
+        case "min":
+            convertedTime = {
+                ms: timeInput * 60000,
+                s: timeInput * 60,
+                h: timeInput / 60,
+                d: timeInput / 1440,
+                wk: timeInput / 10080
+            };
+            break;
+        case "h":
+            convertedTime = {
+                ms: timeInput * 3600000,
+                s: timeInput * 3600,
+                min: timeInput * 60,
+                d: timeInput / 24,
+                wk: timeInput / 168
+            };
+            break;
+        case "d":
+            convertedTime = {
+                ms: timeInput * 86400000,
+                s: timeInput * 86400,
+                min: timeInput * 1440,
+                h: timeInput * 24,
+                wk: timeInput / 7
+            };
+            break;
+        case "wk":
+            convertedTime = {
+                ms: timeInput * 604800000,
+                s: timeInput * 604800,
+                min: timeInput * 10080,
+                h: timeInput * 168,
+                d: timeInput * 7
+            };
+            break;
+    }
+
+    document.getElementById("convertedTime").innerHTML = `
+        Millisecond (ms): ${convertedTime.ms ? convertedTime.ms.toFixed(2) : ""}
+        <br>
+        Second (s): ${convertedTime.s ? convertedTime.s.toFixed(2) : ""}
+        <br>
+        Minute (min): ${convertedTime.min ? convertedTime.min.toFixed(2) : ""}
+        <br>
+        Hour (h): ${convertedTime.h ? convertedTime.h.toFixed(2) : ""}
+        <br>
+        Day (d): ${convertedTime.d ? convertedTime.d.toFixed(2) : ""}
+        <br>
+        Week (wk): ${convertedTime.wk ? convertedTime.wk.toFixed(2) : ""}
+    `;
+}
+</script>
+</body>
+</html>

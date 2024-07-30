@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Format Converter</title>
+</head>
+<body>
+  <h1>Image Format Converter</h1>
+  <input type="file" id="imageInput" accept="image/*">
+  <button onclick="convertImage()">Convert</button>
+  <br>
+  <canvas id="outputCanvas" style="display: none;"></canvas>
+  <a id="downloadLink" download="converted_image.png" style="display: none;">Download Converted Image</a>
+
+  <script>
+    function convertImage() {
+      const input = document.getElementById('imageInput');
+      const file = input.files[0];
+      if (!file) {
+        alert('Please select an image file.');
+        return;
+      }
+
+      const canvas = document.getElementById('outputCanvas');
+      const context = canvas.getContext('2d');
+      const img = new Image();
+
+      img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        context.drawImage(img, 0, 0);
+        const dataURL = canvas.toDataURL('image/jpeg'); // Change 'jpeg' to desired output format
+        const downloadLink = document.getElementById('downloadLink');
+        downloadLink.href = dataURL;
+        downloadLink.style.display = 'block';
+      };
+
+      img.src = URL.createObjectURL(file);
+    }
+  </script>
+   <h1>Image to PDF Converter</h1>
+   <input type="file" id="imageInput" accept="image/*">
+   <button onclick="convertToPDF()">Convert to PDF</button>
+   <br>
+   <a id="downloadLink" download="converted_image.pdf" style="display: none;">Download Converted PDF</a>
+ 
+   <script>
+     function convertToPDF() {
+       const input = document.getElementById('imageInput');
+       const file = input.files[0];
+       if (!file) {
+         alert('Please select an image file.');
+         return;
+       }
+ 
+       const img = new Image();
+       img.onload = function() {
+         const canvas = document.createElement('canvas');
+         const context = canvas.getContext('2d');
+         canvas.width = img.width;
+         canvas.height = img.height;
+         context.drawImage(img, 0, 0);
+ 
+         const pdf = new jsPDF(); // assuming you have included jsPDF library
+ 
+         // Add image to PDF
+         pdf.addImage(canvas.toDataURL('image/jpeg'), 'JPEG', 0, 0, img.width, img.height);
+ 
+         // Save PDF
+         const downloadLink = document.getElementById('downloadLink');
+         downloadLink.href = pdf.output('bloburl');
+         downloadLink.style.display = 'block';
+       };
+ 
+       img.src = URL.createObjectURL(file);
+     }
+   </script>
+ 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</body>
+</html>

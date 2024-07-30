@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temperature Converter</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #8d10cc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+    }
+    .converter {
+        margin: 20px;
+        text-align: center;
+            background-color: #90e04e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+</head>
+<body>
+<div class="converter">
+    <h2>Temperature Converter</h2>
+    <label for="temperature">Enter Temperature:</label>
+    <input type="number" id="temperature" oninput="convertTemperature()">
+    <select id="fromUnit" onchange="convertTemperature()">
+        <option value="c">Celsius (°C)</option>
+        <option value="f">Fahrenheit (°F)</option>
+        <option value="k">Kelvin (K)</option>
+    </select>
+    <p>Converted Temperature:</p>
+    <p id="convertedTemperature"></p>
+</div>
+
+<script>
+function convertTemperature() {
+    const temperatureInput = document.getElementById("temperature").value;
+    const fromUnit = document.getElementById("fromUnit").value;
+    let convertedTemperature;
+
+    switch(fromUnit) {
+        case "c":
+            convertedTemperature = {
+                f: (temperatureInput * 9/5) + 32,
+                k: parseFloat(temperatureInput) + 273.15
+            };
+            break;
+        case "f":
+            convertedTemperature = {
+                c: (temperatureInput - 32) * 5/9,
+                k: ((temperatureInput - 32) * 5/9) + 273.15
+            };
+            break;
+        case "k":
+            convertedTemperature = {
+                c: parseFloat(temperatureInput) - 273.15,
+                f: ((parseFloat(temperatureInput) - 273.15) * 9/5) + 32
+            };
+            break;
+    }
+
+    document.getElementById("convertedTemperature").innerHTML = `
+        Celsius (°C): ${convertedTemperature.c ? convertedTemperature.c.toFixed(2) : ""}
+        <br>
+        Fahrenheit (°F): ${convertedTemperature.f ? convertedTemperature.f.toFixed(2) : ""}
+        <br>
+        Kelvin (K): ${convertedTemperature.k ? convertedTemperature.k.toFixed(2) : ""}
+    `;
+}
+</script>
+</body>
+</html>

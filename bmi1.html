@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #8d10cc;
+        }
+        .container {
+            text-align: center;
+            background-color: #90e04e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h2>BMI Converter</h2>
+        <form id="bmiForm">
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" name="weight" required step="any"><br><br>
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" name="height" required step="any"><br><br>
+            <button type="button" onclick="calculateBMI()">Calculate BMI</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            var weight = parseFloat(document.getElementById("weight").value);
+            var height = parseFloat(document.getElementById("height").value) / 100; // Convert height to meters
+            var bmi = weight / (height * height);
+            document.getElementById("result").innerHTML = "Your BMI is: " + bmi.toFixed(2);
+        }
+    </script>
+</body>
+</html>

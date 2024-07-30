@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="sygn.css">
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        <div class="buttons">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="backspace()">←</button>
+            <button onclick="appendOperator('(')">(</button>
+            <button onclick="appendOperator(')')">)</button>
+            <button onclick="appendOperator('sin(')">sin</button>
+            <button onclick="appendOperator('cos(')">cos</button>
+            <button onclick="appendOperator('tan(')">tan</button>
+            <button onclick="appendOperator('^')">^</button>
+            <button onclick="appendOperator('/')">/</button>
+            <button onclick="appendNumber(7)">7</button>
+            <button onclick="appendNumber(8)">8</button>
+            <button onclick="appendNumber(9)">9</button>
+            <button onclick="appendOperator('*')">*</button>
+            <button onclick="appendNumber(4)">4</button>
+            <button onclick="appendNumber(5)">5</button>
+            <button onclick="appendNumber(6)">6</button>
+            <button onclick="appendOperator('-')">-</button>
+            <button onclick="appendNumber(1)">1</button>
+            <button onclick="appendNumber(2)">2</button>
+            <button onclick="appendNumber(3)">3</button>
+            <button onclick="appendOperator('+')">+</button>
+            <button onclick="appendNumber(0)">0</button>
+            <button onclick="appendOperator('.')">.</button>
+            <button onclick="calculate()">=</button>
+        </div>
+    </div>
+   
+    <script>
+  function clearDisplay() {
+    document.getElementById('display').value = '';
+}
+
+function backspace() {
+    let display = document.getElementById('display');
+    display.value = display.value.slice(0, -1);
+}
+
+function appendNumber(number) {
+    document.getElementById('display').value += number;
+}
+
+function appendOperator(operator) {
+    document.getElementById('display').value += operator;
+}
+
+function calculate() {
+    let display = document.getElementById('display').value;
+    try {
+        let result = eval(display.replace('^', '**')
+                                .replace('sin', 'Math.sin')
+                                .replace('cos', 'Math.cos')
+                                .replace('tan', 'Math.tan'));
+        document.getElementById('display').value = result;
+    } catch (error) {
+        document.getElementById('display').value = 'Error';
+    }
+}
+
+
+</script>
+</body>
+</html>

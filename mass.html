@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mass Converter</title>
+<style>
+    
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #8d10cc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+    }
+    .converter {
+        margin: 20px;
+        text-align: center;
+            background-color: #90e04e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        
+    }
+    
+</style>
+</head>
+<body>
+<div class="converter">
+    <h2>Mass Converter</h2>
+    <label for="mass">Enter Mass:</label>
+    <input type="number" id="mass" oninput="convertMass()">
+    <select id="fromUnit" onchange="convertMass()">
+        <option value="t">Ton (t)</option>
+        <option value="lb">Pound (lb)</option>
+        <option value="kg">Kilogram (kg)</option>
+        <option value="g">Gram (g)</option>
+    </select>
+    <p>Converted Mass:</p>
+    <p id="convertedMass"></p>
+</div>
+
+<script>
+function convertMass() {
+    const massInput = document.getElementById("mass").value;
+    const fromUnit = document.getElementById("fromUnit").value;
+    let convertedMass;
+
+    switch(fromUnit) {
+        case "t":
+            convertedMass = {
+                lb: massInput * 2204.62,
+                kg: massInput * 1000,
+                g: massInput * 1e6
+            };
+            break;
+        case "lb":
+            convertedMass = {
+                t: massInput * 0.000453592,
+                kg: massInput * 0.453592,
+                g: massInput * 453.592
+            };
+            break;
+        case "kg":
+            convertedMass = {
+                t: massInput * 0.001,
+                lb: massInput * 2.20462,
+                g: massInput * 1000
+            };
+            break;
+        case "g":
+            convertedMass = {
+                t: massInput * 1e-6,
+                lb: massInput * 0.00220462,
+                kg: massInput * 0.001
+            };
+            break;
+    }
+
+    document.getElementById("convertedMass").innerHTML = `
+        Ton (t): ${convertedMass.t ? convertedMass.t.toFixed(2) : ""}
+        <br>
+        Pound (lb): ${convertedMass.lb ? convertedMass.lb.toFixed(2) : ""}
+        <br>
+        Kilogram (kg): ${convertedMass.kg ? convertedMass.kg.toFixed(2) : ""}
+        <br>
+        Gram (g): ${convertedMass.g ? convertedMass.g.toFixed(2) : ""}
+    `;
+}
+</script>
+</body>
+</html>

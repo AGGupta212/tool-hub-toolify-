@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Length Converter</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #8d10cc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+    }
+    .converter {
+        margin: 20px;
+        text-align: center;
+            background-color: #90e04e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+       
+    }
+    
+</style>
+</head>
+<body>
+<div class="converter">
+    <h2>Length Converter</h2>
+    <label for="length">Enter Length:</label>
+    <input type="number" id="length" oninput="convertLength()">
+    <select id="fromUnit" onchange="convertLength()">
+        <option value="m">Meter (m)</option>
+        <option value="cm">Centimeter (cm)</option>
+        <option value="in">Inch (in)</option>
+        <option value="ft">Foot (ft)</option>
+    </select>
+    <p>Converted Length:</p>
+    <p id="convertedLength"></p>
+</div>
+
+<script>
+function convertLength() {
+    const lengthInput = document.getElementById("length").value;
+    const fromUnit = document.getElementById("fromUnit").value;
+    let convertedLength;
+
+    switch(fromUnit) {
+        case "m":
+            convertedLength = {
+                cm: lengthInput * 100,
+                in: lengthInput * 39.3701,
+                ft: lengthInput * 3.28084
+            };
+            break;
+        case "cm":
+            convertedLength = {
+                m: lengthInput / 100,
+                in: lengthInput / 2.54,
+                ft: lengthInput / 30.48
+            };
+            break;
+        case "in":
+            convertedLength = {
+                m: lengthInput * 0.0254,
+                cm: lengthInput * 2.54,
+                ft: lengthInput / 12
+            };
+            break;
+        case "ft":
+            convertedLength = {
+                m: lengthInput * 0.3048,
+                cm: lengthInput * 30.48,
+                in: lengthInput * 12
+            };
+            break;
+    }
+
+    document.getElementById("convertedLength").innerHTML = `
+        Meter (m): ${convertedLength.m ? convertedLength.m.toFixed(2) : ""}
+        <br>
+        Centimeter (cm): ${convertedLength.cm ? convertedLength.cm.toFixed(2) : ""}
+        <br>
+        Inch (in): ${convertedLength.in ? convertedLength.in.toFixed(2) : ""}
+        <br>
+        Foot (ft): ${convertedLength.ft ? convertedLength.ft.toFixed(2) : ""}
+    `;
+}
+</script>
+</body>
+</html>

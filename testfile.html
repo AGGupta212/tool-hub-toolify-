@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Builder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <form id="resume-form">
+    <h1>Resume Builder</h1>
+    <fieldset>
+      <legend>Personal Information</legend>
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone">
+      <label for="website">Website (Optional):</label>
+      <input type="url" id="website" name="website">
+    </fieldset>
+    <fieldset>
+      <legend>Education</legend>
+      <div id="education-fields">
+        <div class="education-entry">
+          <label for="edu-institution">Institution:</label>
+          <input type="text" id="edu-institution" name="education[]" required>
+          <label for="edu-year">Year:</label>
+          <input type="text" id="edu-year" name="education[]" required>
+          <label for="edu-degree">Degree/Diploma (Optional):</label>
+          <input type="text" id="edu-degree" name="education[]">
+        </div>
+      </div>
+      <button type="button" id="add-education">Add Education</button>
+    </fieldset>
+    <fieldset>
+      <legend>Work Experience</legend>
+      <div id="work-experience-fields">
+        <div class="work-entry">
+          <label for="work-company">Company:</label>
+          <input type="text" id="work-company" name="work[]" required>
+          <label for="work-year">Year:</label>
+          <input type="text" id="work-year" name="work[]" required>
+          <label for="work-title">Title:</label>
+          <input type="text" id="work-title" name="work[]" required>
+          <label for="work-description">Description (Optional):</label>
+          <textarea id="work-description" name="work[]"></textarea>
+        </div>
+      </div>
+      <button type="button" id="add-work">Add Work Experience</button>
+    </fieldset>
+    <button type="submit">Generate Resume</button>
+  </form>
+  <div id="resume-output"></div>
+  <a id="download-link" href="#" download="resume.html">Download Resume</a>
+  <script>
+
+const resumeForm = document.getElementById('resume-form');
+const resumeOutput = document.getElementById('resume-output');
+const downloadLink = document.getElementById('download-link');
+
+resumeForm.addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent default form submission
+
+  // Function to generate the resume HTML structure based on form data
+  const resumeHtml = generateResumeHtml();
+
+  // Set the resume content in the output div
+  resumeOutput.innerHTML = resumeHtml;
+
+  // Make the download link visible and set its href for download
+  downloadLink.style.display = 'block';
+  downloadLink.href = URL.createObjectURL(new Blob([resumeHtml], { type: 'text/html' }));
+});
+
+//Function to add functionality for adding new education and work entries (implementation not shown)
+
+function generateResumeHtml() {
+  // Implement logic to build the resume HTML structure
+  // Use the form data (name, title, etc.) and loop through education/work experience entries
+  // Here's an example structure:
+  
+}
+
+
+
+
+
+  </script>
+</body>
+</html>
